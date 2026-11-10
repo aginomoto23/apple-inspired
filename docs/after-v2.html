@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 工作空间 - AIGC-DAO</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Noto Sans SC", "PingFang SC", sans-serif;
+      background: #000;
+      color: #f5f5f7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    
+    /* 导航 */
+    .nav {
+      padding: 16px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 100;
+    }
+    
+    .logo {
+      font-size: 18px;
+      font-weight: 600;
+      color: #f5f5f7;
+      letter-spacing: -0.02em;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    
+    .nav-links a {
+      color: #a1a1a6;
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover { color: #f5f5f7; }
+    
+    /* 主视觉区 */
+    .hero {
+      padding: 100px 48px 80px;
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .hero-eyebrow {
+      font-size: 20px;
+      font-weight: 500;
+      color: #a1a1a6;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+    
+    .hero h1 {
+      font-size: 80px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      margin-bottom: 28px;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #fb7185 0%, #a78bfa 50%, #60a5fa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero-desc {
+      font-size: 24px;
+      font-weight: 400;
+      color: #86868b;
+      max-width: 650px;
+      margin: 0 auto 48px;
+      line-height: 1.4;
+    }
+    
+    .cta-group {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+    }
+    
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 19px;
+      font-weight: 500;
+      color: #2997ff;
+      text-decoration: none;
+    }
+    
+    .cta::after {
+      content: "›";
+      font-size: 24px;
+    }
+    
+    .cta-secondary {
+      color: #a1a1a6;
+    }
+    
+    /* Bento Grid */
+    .bento-section {
+      padding: 40px 48px 100px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+    
+    .bento-card {
+      background: #1d1d1f;
+      border-radius: 24px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .bento-card.large {
+      grid-row: span 2;
+    }
+    
+    .bento-card.highlight {
+      background: #f5f5f7;
+    }
+    
+    .bento-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #86868b;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    
+    .bento-card.highlight .bento-label {
+      color: #6e6e73;
+    }
+    
+    .bento-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: #f5f5f7;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    
+    .bento-title-lg {
+      font-size: 36px;
+    }
+    
+    .bento-card.highlight .bento-title {
+      color: #1d1d1f;
+    }
+    
+    .bento-desc {
+      font-size: 15px;
+      color: #86868b;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+    
+    .bento-card.highlight .bento-desc {
+      color: #6e6e73;
+    }
+    
+    .bento-visual {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 24px;
+      min-height: 180px;
+    }
+    
+    /* SVG 工作流视觉 */
+    .workflow-svg {
+      width: 100%;
+      max-width: 280px;
+    }
+    
+    .node {
+      fill: #2d2d2f;
+      stroke: #3d3d3f;
+      stroke-width: 1.5;
+    }
+    
+    .node-active {
+      fill: #1d4ed8;
+      stroke: #3b82f6;
+      stroke-width: 2;
+    }
+    
+    .node-accent {
+      fill: #7c3aed;
+      stroke: #8b5cf6;
+      stroke-width: 2;
+    }
+    
+    .node-text {
+      fill: #86868b;
+      font-size: 9px;
+      font-family: Inter, sans-serif;
+      font-weight: 500;
+    }
+    
+    .node-text-light {
+      fill: #f5f5f7;
+    }
+    
+    .connection {
+      stroke: #3d3d3f;
+      stroke-width: 1.5;
+      fill: none;
+    }
+    
+    .connection-active {
+      stroke: #3b82f6;
+    }
+    
+    /* 数据指标 */
+    .metric {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-top: 16px;
+    }
+    
+    .metric-value {
+      font-size: 64px;
+      font-weight: 700;
+      color: #f5f5f7;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    
+    .metric-unit {
+      font-size: 28px;
+      font-weight: 500;
+      color: #6e6e73;
+    }
+    
+    /* 页脚 */
+    .footer {
+      padding: 32px 48px;
+      text-align: center;
+      font-size: 12px;
+      color: #6e6e73;
+      border-top: 1px solid #1d1d1f;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">AIGC-DAO</div>
+    <div class="nav-links">
+      <a href="#">产品</a>
+      <a href="#">功能</a>
+      <a href="#">关于</a>
+    </div>
+  </nav>
+  
+  <section class="hero">
+    <p class="hero-eyebrow">AI 工作空间</p>
+    <h1>把复杂，<br><span class="gradient-text">留给 AI。</span></h1>
+    <p class="hero-desc">一个入口，连接一切。让 AI 处理繁琐，你专注创造。</p>
+    <div class="cta-group">
+      <a href="#" class="cta">进一步了解</a>
+      <a href="#" class="cta cta-secondary">观看演示</a>
+    </div>
+  </section>
+  
+  <section class="bento-section">
+    <div class="bento-grid">
+      <!-- 左侧大卡片 -->
+      <div class="bento-card large">
+        <span class="bento-label">智能助手</span>
+        <h3 class="bento-title bento-title-lg">随叫随到<br>全天候响应</h3>
+        <p class="bento-desc">7×24 小时在线，理解上下文，主动完成任务。</p>
+        <div class="bento-visual">
+          <svg viewBox="0 0 240 160" class="workflow-svg">
+            <circle cx="40" cy="80" r="28" class="node"/>
+            <text x="40" y="84" text-anchor="middle" class="node-text">输入</text>
+            
+            <circle cx="120" cy="50" r="24" class="node node-active"/>
+            <text x="120" y="54" text-anchor="middle" class="node-text node-text-light">AI</text>
+            
+            <circle cx="120" cy="115" r="20" class="node node-accent"/>
+            <text x="120" y="119" text-anchor="middle" class="node-text node-text-light">分析</text>
+            
+            <circle cx="200" cy="80" r="28" class="node"/>
+            <text x="200" y="84" text-anchor="middle" class="node-text">输出</text>
+            
+            <path d="M68 72 Q90 60 96 50" class="connection connection-active"/>
+            <path d="M68 88 Q90 100 100 115" class="connection"/>
+            <path d="M144 50 Q160 60 172 72" class="connection connection-active"/>
+            <path d="M140 115 Q160 105 172 88" class="connection"/>
+          </svg>
+        </div>
+      </div>
+      
+      <!-- 中间上方 - 数据卡片 -->
+      <div class="bento-card">
+        <span class="bento-label">效率提升</span>
+        <div class="metric">
+          <span class="metric-value">10</span>
+          <span class="metric-unit">倍</span>
+        </div>
+        <p class="bento-desc">重复任务处理速度<br>（概念演示数据）</p>
+      </div>
+      
+      <!-- 右侧上方 -->
+      <div class="bento-card">
+        <span class="bento-label">工作流</span>
+        <h3 class="bento-title">可视化搭建<br>无需编码</h3>
+        <p class="bento-desc">拖拽连接，所见即所得</p>
+      </div>
+      
+      <!-- 中间下方 - 亮色卡片 -->
+      <div class="bento-card highlight">
+        <span class="bento-label">团队协作</span>
+        <h3 class="bento-title">实时同步<br>多人协作</h3>
+        <p class="bento-desc">信息即时共享，决策更高效</p>
+      </div>
+      
+      <!-- 右侧下方 -->
+      <div class="bento-card">
+        <span class="bento-label">安全</span>
+        <h3 class="bento-title">数据加密<br>隐私优先</h3>
+        <p class="bento-desc">端到端加密，你的数据只属于你</p>
+      </div>
+    </div>
+  </section>
+  
+  <footer class="footer">
+    概念演示 · 出品与维护：AIGC-DAO · 非商业产品 · 与 Apple 无关联
+  </footer>
+</body>
+</html>

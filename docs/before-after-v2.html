@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Before / After V2</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Noto Sans SC", "PingFang SC", sans-serif;
+      background: #e8e8e8;
+      padding: 32px;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .container {
+      display: flex;
+      gap: 32px;
+      max-width: 2600px;
+      margin: 0 auto;
+    }
+    
+    .panel {
+      flex: 1;
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    }
+    
+    .panel-label {
+      padding: 20px 32px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    
+    .before .panel-label {
+      background: #f5f5f7;
+      color: #86868b;
+    }
+    
+    .after .panel-label {
+      background: #1d1d1f;
+      color: #f5f5f7;
+    }
+    
+    /* ===== BEFORE: 合理朴素的普通页面 ===== */
+    .before-page {
+      background: #fff;
+      min-height: 720px;
+    }
+    
+    .before-nav {
+      padding: 16px 32px;
+      border-bottom: 1px solid #e5e5e5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .before-logo {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .before-nav-links {
+      display: flex;
+      gap: 24px;
+    }
+    
+    .before-nav-links a {
+      color: #666;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    
+    .before-hero {
+      padding: 48px 32px;
+      text-align: center;
+      background: #f8f8f8;
+    }
+    
+    .before-hero h1 {
+      font-size: 32px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 16px;
+    }
+    
+    .before-hero p {
+      font-size: 16px;
+      color: #666;
+      max-width: 500px;
+      margin: 0 auto 24px;
+    }
+    
+    .before-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: #007aff;
+      color: white;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    
+    .before-features {
+      padding: 48px 32px;
+    }
+    
+    .before-features h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    
+    .before-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    
+    .before-card {
+      background: #f8f8f8;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    
+    .before-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 12px;
+    }
+    
+    .before-card p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.5;
+    }
+    
+    .before-footer {
+      padding: 24px 32px;
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+      border-top: 1px solid #eee;
+    }
+    
+    /* ===== AFTER: Apple风格营销页 ===== */
+    .after-page {
+      background: #000;
+      min-height: 720px;
+      color: #f5f5f7;
+    }
+    
+    .after-nav {
+      padding: 16px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .after-logo {
+      font-size: 18px;
+      font-weight: 600;
+      color: #f5f5f7;
+      letter-spacing: -0.02em;
+    }
+    
+    .after-nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    
+    .after-nav-links a {
+      color: #a1a1a6;
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    
+    .after-nav-links a:hover { color: #f5f5f7; }
+    
+    /* 主视觉区 */
+    .after-hero {
+      padding: 80px 48px 60px;
+      text-align: center;
+    }
+    
+    .after-hero-eyebrow {
+      font-size: 18px;
+      font-weight: 500;
+      color: #a1a1a6;
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+    
+    .after-hero h1 {
+      font-size: 72px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, #fb7185, #a78bfa, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .after-hero-desc {
+      font-size: 21px;
+      font-weight: 400;
+      color: #a1a1a6;
+      max-width: 600px;
+      margin: 0 auto 36px;
+      line-height: 1.4;
+    }
+    
+    .after-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 19px;
+      font-weight: 500;
+      color: #2997ff;
+      text-decoration: none;
+    }
+    
+    .after-cta::after {
+      content: "›";
+      font-size: 24px;
+    }
+    
+    /* Bento Grid */
+    .after-bento {
+      padding: 20px 48px 60px;
+    }
+    
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    .bento-card {
+      background: #1d1d1f;
+      border-radius: 20px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .bento-card.large {
+      grid-row: span 2;
+    }
+    
+    .bento-card.wide {
+      grid-column: span 1;
+    }
+    
+    .bento-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #86868b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .bento-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #f5f5f7;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    
+    .bento-title-lg {
+      font-size: 32px;
+    }
+    
+    .bento-desc {
+      font-size: 14px;
+      color: #86868b;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+    
+    .bento-visual {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    /* SVG 工作流视觉 */
+    .workflow-visual {
+      width: 100%;
+      height: 160px;
+    }
+    
+    .node {
+      fill: #2d2d2f;
+      stroke: #3d3d3f;
+      stroke-width: 1;
+    }
+    
+    .node-active {
+      fill: #1d4ed8;
+      stroke: #3b82f6;
+    }
+    
+    .node-text {
+      fill: #a1a1a6;
+      font-size: 10px;
+      font-family: Inter, sans-serif;
+    }
+    
+    .connection {
+      stroke: #3d3d3f;
+      stroke-width: 1.5;
+      fill: none;
+    }
+    
+    .connection-active {
+      stroke: #3b82f6;
+      stroke-dasharray: 4 2;
+    }
+    
+    /* 数据指标卡片 */
+    .metric-value {
+      font-size: 48px;
+      font-weight: 700;
+      color: #f5f5f7;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    
+    .metric-unit {
+      font-size: 24px;
+      font-weight: 500;
+      color: #86868b;
+    }
+    
+    /* 页脚 */
+    .after-footer {
+      padding: 24px 48px;
+      text-align: center;
+      font-size: 12px;
+      color: #6e6e73;
+      border-top: 1px solid #1d1d1f;
+    }
+    
+    /* 注释 */
+    .annotations {
+      padding: 20px 32px;
+      background: #fafafa;
+    }
+    
+    .annotation-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #86868b;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .annotation-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .annotation-tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      background: white;
+      border: 1px solid #e5e5e5;
+      border-radius: 100px;
+      color: #6e6e73;
+    }
+    
+    .sample-notice {
+      text-align: center;
+      padding: 12px;
+      font-size: 11px;
+      color: #6e6e73;
+    }
+    
+    .before-page .sample-notice { background: #f5f5f5; }
+    .after-page .sample-notice { background: #0d0d0d; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- BEFORE -->
+    <div class="panel before">
+      <div class="panel-label">优化前</div>
+      <div class="before-page">
+        <nav class="before-nav">
+          <div class="before-logo">AIGC-DAO</div>
+          <div class="before-nav-links">
+            <a href="#">产品</a>
+            <a href="#">功能</a>
+            <a href="#">关于</a>
+          </div>
+        </nav>
+        
+        <section class="before-hero">
+          <h1>AI 工作空间</h1>
+          <p>一站式智能工作平台，让 AI 帮你处理繁琐任务，专注真正重要的事。</p>
+          <a href="#" class="before-btn">了解更多</a>
+        </section>
+        
+        <section class="before-features">
+          <h2>核心功能</h2>
+          <div class="before-grid">
+            <div class="before-card">
+              <h3>智能助手</h3>
+              <p>7×24 小时在线，随时响应你的需求，自动处理日常任务。</p>
+            </div>
+            <div class="before-card">
+              <h3>工作流自动化</h3>
+              <p>可视化搭建工作流，连接多个应用，减少重复操作。</p>
+            </div>
+            <div class="before-card">
+              <h3>团队协作</h3>
+              <p>实时同步，多人协作，让团队效率提升。</p>
+            </div>
+          </div>
+        </section>
+        
+        <footer class="before-footer">
+          <div class="sample-notice">概念演示 · AIGC-DAO · 非商业产品</div>
+        </footer>
+      </div>
+      
+      <div class="annotations">
+        <div class="annotation-title">待优化项</div>
+        <div class="annotation-list">
+          <span class="annotation-tag">字体层级平淡</span>
+          <span class="annotation-tag">卡片等大无节奏</span>
+          <span class="annotation-tag">留白缺乏呼吸</span>
+          <span class="annotation-tag">视觉重点不明</span>
+          <span class="annotation-tag">缺少情绪表达</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- AFTER -->
+    <div class="panel after">
+      <div class="panel-label">优化后</div>
+      <div class="after-page">
+        <nav class="after-nav">
+          <div class="after-logo">AIGC-DAO</div>
+          <div class="after-nav-links">
+            <a href="#">产品</a>
+            <a href="#">功能</a>
+            <a href="#">关于</a>
+          </div>
+        </nav>
+        
+        <section class="after-hero">
+          <p class="after-hero-eyebrow">AI 工作空间</p>
+          <h1>把复杂，<br><span class="gradient-text">留给 AI。</span></h1>
+          <p class="after-hero-desc">一个入口，连接一切。让 AI 处理繁琐，你专注创造。</p>
+          <a href="#" class="after-cta">进一步了解</a>
+        </section>
+        
+        <section class="after-bento">
+          <div class="bento-grid">
+            <!-- 左侧大卡片 -->
+            <div class="bento-card large">
+              <span class="bento-label">智能助手</span>
+              <h3 class="bento-title bento-title-lg">随叫随到，<br>全天候响应</h3>
+              <p class="bento-desc">7×24 在线，理解上下文，主动完成任务。</p>
+              <div class="bento-visual">
+                <svg viewBox="0 0 180 120" class="workflow-visual">
+                  <circle cx="30" cy="60" r="24" class="node"/>
+                  <text x="30" y="64" text-anchor="middle" class="node-text">输入</text>
+                  <circle cx="90" cy="40" r="20" class="node node-active"/>
+                  <text x="90" y="44" text-anchor="middle" class="node-text" fill="#f5f5f7">AI</text>
+                  <circle cx="90" cy="90" r="16" class="node"/>
+                  <text x="90" y="94" text-anchor="middle" class="node-text">分析</text>
+                  <circle cx="150" cy="60" r="24" class="node"/>
+                  <text x="150" y="64" text-anchor="middle" class="node-text">输出</text>
+                  <path d="M54 60 Q70 50 70 40" class="connection connection-active"/>
+                  <path d="M54 60 Q70 75 74 90" class="connection"/>
+                  <path d="M110 40 Q130 50 126 60" class="connection connection-active"/>
+                  <path d="M106 90 Q120 80 126 60" class="connection"/>
+                </svg>
+              </div>
+            </div>
+            
+            <!-- 中间上方宽卡片 -->
+            <div class="bento-card">
+              <span class="bento-label">效率提升</span>
+              <div style="display:flex;align-items:baseline;gap:8px;margin-top:12px;">
+                <span class="metric-value">10</span>
+                <span class="metric-unit">倍</span>
+              </div>
+              <p class="bento-desc">重复任务处理速度（概念演示数据）</p>
+            </div>
+            
+            <!-- 右侧上方卡片 -->
+            <div class="bento-card">
+              <span class="bento-label">工作流</span>
+              <h3 class="bento-title">可视化搭建</h3>
+              <p class="bento-desc">拖拽连接，无需编码</p>
+            </div>
+            
+            <!-- 中间下方卡片 -->
+            <div class="bento-card" style="background:#f5f5f7;">
+              <span class="bento-label" style="color:#6e6e73;">团队协作</span>
+              <h3 class="bento-title" style="color:#1d1d1f;">实时同步<br>多人协作</h3>
+            </div>
+            
+            <!-- 右侧下方卡片 -->
+            <div class="bento-card">
+              <span class="bento-label">安全</span>
+              <h3 class="bento-title">数据加密<br>隐私优先</h3>
+            </div>
+          </div>
+        </section>
+        
+        <footer class="after-footer">
+          <div class="sample-notice">概念演示 · AIGC-DAO · 非商业产品 · 与 Apple 无关联</div>
+        </footer>
+      </div>
+      
+      <div class="annotations" style="background:#1d1d1f;">
+        <div class="annotation-title" style="color:#6e6e73;">优化要点</div>
+        <div class="annotation-list">
+          <span class="annotation-tag" style="background:#2d2d2f;border-color:#3d3d3f;color:#a1a1a6;">巨大字体对比</span>
+          <span class="annotation-tag" style="background:#2d2d2f;border-color:#3d3d3f;color:#a1a1a6;">Bento 错落节奏</span>
+          <span class="annotation-tag" style="background:#2d2d2f;border-color:#3d3d3f;color:#a1a1a6;">黑白灰层次</span>
+          <span class="annotation-tag" style="background:#2d2d2f;border-color:#3d3d3f;color:#a1a1a6;">有限渐变焦点</span>
+          <span class="annotation-tag" style="background:#2d2d2f;border-color:#3d3d3f;color:#a1a1a6;">大块留白呼吸</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

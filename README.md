@@ -12,9 +12,11 @@
 
 ## 效果对比
 
-![优化前 vs 优化后](docs/images/before-after.png)
+![优化前 vs 优化后](docs/images/before-after-v2.png)
 
-*左：优化前（间距不一致、层级不清晰、颜色过重）→ 右：优化后（统一间距、清晰层级、克制配色）*
+*左：优化前（字体层级平淡、卡片等大无节奏）→ 右：优化后（巨大字体对比、Bento 错落、黑白灰层次、有限渐变焦点）*
+
+**After 单独视图**：[查看大图](docs/images/after-v2.png)
 
 ---
 
